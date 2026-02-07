@@ -1,70 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Design tokens (senior move): keep a small theme you control */
+@layer base {
+  :root{
+    --bg: 255 255 255;
+    --surface: 255 255 255;
+    --muted: 249 250 251;
+    --text: 17 24 39;
+    --subtle: 107 114 128;
+    --border: 229 231 235;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    --primary: 99 102 241;         /* indigo-500 */
+    --primary-hover: 79 70 229;    /* indigo-600 */
+    --primary-foreground: 255 255 255;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+    --danger: 220 38 38;
+    --danger-hover: 185 28 28;
   }
-  a:hover {
-    color: #747bff;
+
+  .dark{
+    --bg: 17 24 39;
+    --surface: 17 24 39;
+    --muted: 31 41 55;
+    --text: 243 244 246;
+    --subtle: 156 163 175;
+    --border: 55 65 81;
+
+    --primary: 129 140 248;
+    --primary-hover: 99 102 241;
+    --primary-foreground: 15 23 42;
   }
-  button {
-    background-color: #f9f9f9;
+
+  html, body {
+    height: 100%;
+  }
+
+  body{
+    background: rgb(var(--bg));
+    color: rgb(var(--text));
+  }
+}
+
+/* Reusable UI primitives */
+@layer components {
+  .ui-card{
+    @apply rounded-2xl border bg-white shadow-sm;
+    border-color: rgb(var(--border));
+    background: rgb(var(--surface));
+  }
+
+  .ui-section-title{
+    @apply text-2xl font-bold;
+  }
+
+  .ui-muted{
+    color: rgb(var(--subtle));
+  }
+
+  .ui-input{
+    @apply w-full rounded-lg border px-3 py-2 text-sm outline-none transition;
+    border-color: rgb(var(--border));
+    background: rgb(var(--surface));
+  }
+  .ui-input:focus{
+    box-shadow: 0 0 0 2px rgba(var(--primary), .25);
+    border-color: rgb(var(--primary));
+  }
+
+  .ui-btn{
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .ui-btn-primary{
+    background: rgb(var(--primary));
+    color: rgb(var(--primary-foreground));
+  }
+  .ui-btn-primary:hover{
+    background: rgb(var(--primary-hover));
+  }
+  .ui-btn-secondary{
+    @apply border;
+    border-color: rgb(var(--border));
+    background: rgb(var(--surface));
+  }
+  .ui-btn-secondary:hover{
+    background: rgb(var(--muted));
+  }
+  .ui-btn-danger{
+    background: rgb(var(--danger));
+    color: white;
+  }
+  .ui-btn-danger:hover{
+    background: rgb(var(--danger-hover));
+  }
+
+  .ui-table{
+    @apply w-full text-sm;
+  }
+  .ui-th{
+    @apply p-3 text-left font-medium;
+    background: rgb(var(--muted));
+  }
+  .ui-td{
+    @apply p-3 align-top;
+    border-top: 1px solid rgb(var(--border));
   }
 }

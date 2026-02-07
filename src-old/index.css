@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+body{
+    color: oklch(37.2% .044 257.287);
+}
